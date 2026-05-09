@@ -11,9 +11,10 @@ reg [WIDTH-1:0] data;
 
 assign o_data = data;
 
+integer i;
 always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-        for (integer i = 0; i < WIDTH; i = i + 1) begin
+        for (i = 0; i < WIDTH; i = i + 1) begin
             data[i] <= i % 2;
         end
     end
