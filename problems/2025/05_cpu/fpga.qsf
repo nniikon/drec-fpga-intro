@@ -42,7 +42,7 @@
 # ========================
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 16.1.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "22:31:17  DECEMBER 02, 2017"
-set_global_assignment -name LAST_QUARTUS_VERSION "23.1std.1 Lite Edition"
+set_global_assignment -name LAST_QUARTUS_VERSION "25.1std.0 Lite Edition"
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output
 set_global_assignment -name SMART_RECOMPILE OFF
 set_global_assignment -name NUM_PARALLEL_PROCESSORS ALL
@@ -62,15 +62,18 @@ set_global_assignment -name VERILOG_FILE src/lsu.v
 set_global_assignment -name VERILOG_FILE src/hex_display.v
 set_global_assignment -name VERILOG_FILE src/mmio_xbar.v
 set_global_assignment -name VERILOG_FILE src/ctrl_74hc595.v
+set_global_assignment -name VERILOG_FILE src/sext.v
+set_global_assignment -name VERILOG_FILE src/decoder.v
+set_global_assignment -name VERILOG_FILE src/pll.v
 
 # Pin & Location Assignments
 # ==========================
 set_location_assignment PIN_T22 -to CLK
 set_location_assignment PIN_U20 -to RSTN
 set_location_assignment PIN_AA1 -to DS
-set_location_assignment PIN_Y2 	-to OE
-set_location_assignment PIN_W1 	-to SHCP
-set_location_assignment PIN_Y1 	-to STCP
+set_location_assignment PIN_Y2 -to OE
+set_location_assignment PIN_W1 -to SHCP
+set_location_assignment PIN_Y1 -to STCP
 
 # Classic Timing Assignments
 # ==========================
@@ -124,13 +127,14 @@ set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -
 
 		# Incremental Compilation Assignments
 		# ===================================
-		set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
-		set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
-		set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 
 	# end DESIGN_PARTITION(Top)
 	# -------------------------
 
 # end ENTITY(fpga_top)
 # --------------------
+set_global_assignment -name QIP_FILE src/pll.qip
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

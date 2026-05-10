@@ -12,9 +12,11 @@ RTL_LIST := 		\
 	src/mem_xbar.v	\
 	src/lsu.v		\
 	src/mux4.v		\
+	src/sext.v	    \
+	src/decoder.v
 
 sim: $(TB_LIST) $(RTL_LIST)
-	iverilog -I./src/ $^ -o sim
+	iverilog -Wall -Wno-timescale -I./src/ $^ -o sim
 	./sim
 
 waves: dump.vcd

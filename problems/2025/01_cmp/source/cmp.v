@@ -12,6 +12,7 @@ module rv32i_cmp #(
 
 always @(*) begin
     o_exception = 1'b0;
+    o_res = 1'b0;
     case (i_funct3)
         3'b000: o_res = i_rs1 == i_rs2;                       // beq
         3'b001: o_res = i_rs1 != i_rs2;                       // bne
@@ -21,6 +22,7 @@ always @(*) begin
         3'b111: o_res = $unsigned(i_rs1) >= $unsigned(i_rs2); // bgeu
         default: begin
             o_exception = 1'b1;
+            o_res = 1'b0;
         end
     endcase
 

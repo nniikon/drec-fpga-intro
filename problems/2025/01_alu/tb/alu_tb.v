@@ -24,7 +24,7 @@ module alu_tb;
     rv32i_alu #(
         .WIDTH(WIDTH)
     ) rv32i_alu_inst (
-        .i_funct7(funct7),
+        .i_funct7_5(funct7[5]),
         .i_funct3(funct3),
         .i_rs1(rs1),
         .i_rs2(rs2),
