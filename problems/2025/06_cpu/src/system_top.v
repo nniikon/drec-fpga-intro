@@ -4,14 +4,9 @@ module system_top(
     input  wire clk,
     input  wire rst_n,
 
-    output wire o_stcp,
-    output wire o_shcp,
-    output wire o_ds,
-    output wire o_oe
+    output wire [3:0] anodes,
+    output wire [7:0] segments
 );
-
-wire [3:0] anodes;
-wire [7:0] segments;
 
 wire [15:0] hexd_data;
 wire        hexd_wren;
@@ -43,23 +38,22 @@ mmio_xbar mmio_xbar(
     .o_hexd_wren(hexd_wren      )
 );
 
+reg [15:0] hexd_data_reg;
+
+always @(posedge clk or negedge rst_n) begin
+    if (!rst_n)
+        hexd_data_reg <= 16'b0;
+    else if (hexd_wren)
+        hexd_data_reg <= hexd_data;
+end
+
 hex_display hex_display(
     .clk        (clk            ),
     .rst_n      (rst_n          ),
-    .i_data     (hexd_data      ),
-    .i_we       (hexd_wren      ),
+    .i_data     (hexd_data_reg  ),
+    .i_dots     (4'b0           ),
     .o_anodes   (anodes         ),
     .o_segments (segments       )
-);
-
-ctrl_74hc595 ctrl_74hc595(
-    .clk    (clk                ),
-    .rst_n  (rst_n              ),
-    .i_data ({segments, anodes} ),
-    .o_stcp (o_stcp             ),
-    .o_shcp (o_shcp             ),
-    .o_ds   (o_ds               ),
-    .o_oe   (o_oe               )
 );
 
 endmodule

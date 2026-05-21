@@ -33,6 +33,8 @@ RTL_LIST += 		\
 	src/mem_xbar.v	\
 	src/lsu.v		\
 	src/mux4.v		\
+	src/decoder.v   \
+	src/sext.v
 
 ifeq ($(GUI), 1)
 VSIM_FLAGS :=
@@ -64,7 +66,7 @@ sim: $(TB_LIST) $(RTL_LIST)
 ifeq ($(GATE), 1)
 	$(error Icarus Verilog doesn't support GLS)
 else
-	iverilog -s $(TOP_TB_NAME) -I./src/ $^ -o sim
+	iverilog -Wall -Wno-timescale -s $(TOP_TB_NAME) -I./src/ $^ -o sim
 	./sim
 endif
 
